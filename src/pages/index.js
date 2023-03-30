@@ -1,11 +1,45 @@
 import { data } from "@/data/data"
 import Link from "next/link"
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 function Home() {
   const perspectiveRef = useRef(null);
   const triggerRef = useRef(null);
   const refs = data.map(() => useRef([]));
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  useEffect(() => {
+    const firstAnim = refs[0].current;
+    const secondAnim = refs[1].current;
+    let ctx = gsap.context(() => {
+      gsap.timeline({
+        defaults: {
+          ease: "none"
+        },
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: "2000 bottom",
+          scrub: 1,
+          pin: true,
+          snap: 1 / (refs.length),
+        }
+      })
+        .to(perspectiveRef.current, {
+          transform: "translate3d(0px, 0px, 35rem)",
+        })
+        .set(firstAnim, {
+          opacity: 0,
+        }, 0.250)
+        .set(secondAnim, {
+          opacity: 0,
+        }, 0.400);
+    })
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div>
