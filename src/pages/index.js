@@ -43,6 +43,7 @@ function Home() {
 
   return (
     <div>
+      <div className='spacer'></div>
       <div ref={triggerRef} className="perspective">
         <div ref={perspectiveRef} className="perspective-inner">
           {data.map((project, index) => (
@@ -58,6 +59,7 @@ function Home() {
           ))}
         </div>
       </div>
+      <div className='spacer'></div>
     </div>
   )
 }

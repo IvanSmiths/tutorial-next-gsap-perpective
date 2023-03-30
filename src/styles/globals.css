@@ -74,3 +74,8 @@ a {
 .third {
   transform: translate3d(0px, 0px, -20rem) translateY(-50%);
 }
+
+.spacer {
+  height: 60vh;
+  background-color: #ffffff;
+}
